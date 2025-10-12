@@ -12,6 +12,7 @@ rust-version = { workspace = true }
 version = "0.14.0"
 
 [package.metadata.docs.rs]
+features = ["docsrs"]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 
 [features]
@@ -32,6 +33,8 @@ experimental-algorithms = []
 uniffi = ["dep:uniffi"]
 _disable-minimum-rotation-period-ms = []
 
+docsrs = ["aquamarine"]
+
 # Private feature, see
 # https://github.com/matrix-org/matrix-rust-sdk/pull/3749#issuecomment-2312939823 for the gory
 # details.
@@ -45,7 +48,6 @@ testing = ["matrix-sdk-test"]
 
 [dependencies]
 aes = "0.8.4"
-aquamarine.workspace = true
 as_variant.workspace = true
 async-trait.workspace = true
 bs58 = { version = "0.5.1" }
@@ -80,6 +82,9 @@ uniffi = { workspace = true, optional = true }
 url.workspace = true
 vodozemac.workspace = true
 zeroize = { workspace = true, features = ["zeroize_derive"] }
+
+[target.'cfg(any(doc, docsrs))'.dependencies]
+aquamarine = { workspace = true, optional = true }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 tokio = { workspace = true, features = ["time"] }
